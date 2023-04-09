@@ -31,3 +31,5 @@ Build/*
 *.exe
 *.out
 *.app
+base/VulkanAndroid.h
+base/VulkanAndroid.cpp

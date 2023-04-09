@@ -322,15 +322,6 @@ public:
 
 	void draw()
 	{
-#if defined(VK_USE_PLATFORM_MACOS_MVK)
-		// SRS - on macOS use swapchain helper function with common semaphores/fences for proper resize handling
-		// Get next image in the swap chain (back/front buffer)
-		prepareFrame();
-
-		// Use a fence to wait until the command buffer has finished execution before using it again
-		VK_CHECK_RESULT(vkWaitForFences(device, 1, &waitFences[currentBuffer], VK_TRUE, UINT64_MAX));
-		VK_CHECK_RESULT(vkResetFences(device, 1, &waitFences[currentBuffer]));
-#else
 		// SRS - on other platforms use original bare code with local semaphores/fences for illustrative purposes
 		// Get next image in the swap chain (back/front buffer)
 		VkResult acquire = swapChain.acquireNextImage(presentCompleteSemaphore, &currentBuffer);
@@ -341,7 +332,6 @@ public:
 		// Use a fence to wait until the command buffer has finished execution before using it again
 		VK_CHECK_RESULT(vkWaitForFences(device, 1, &queueCompleteFences[currentBuffer], VK_TRUE, UINT64_MAX));
 		VK_CHECK_RESULT(vkResetFences(device, 1, &queueCompleteFences[currentBuffer]));
-#endif
 
 		// Pipeline stage at which the queue submission will wait (via pWaitSemaphores)
 		VkPipelineStageFlags waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
@@ -354,17 +344,7 @@ public:
 		submitInfo.pCommandBuffers = &drawCmdBuffers[currentBuffer]; // Command buffers(s) to execute in this batch (submission)
 		submitInfo.commandBufferCount = 1;                           // One command buffer
 
-#if defined(VK_USE_PLATFORM_MACOS_MVK)
-		// SRS - on macOS use swapchain helper function with common semaphores/fences for proper resize handling
-		submitInfo.pWaitSemaphores = &semaphores.presentComplete;    // Semaphore(s) to wait upon before the submitted command buffer starts executing
-		submitInfo.pSignalSemaphores = &semaphores.renderComplete;   // Semaphore(s) to be signaled when command buffers have completed
 
-		// Submit to the graphics queue passing a wait fence
-		VK_CHECK_RESULT(vkQueueSubmit(queue, 1, &submitInfo, waitFences[currentBuffer]));
-
-		// Present the current buffer to the swap chain
-		submitFrame();
-#else
 		// SRS - on other platforms use original bare code with local semaphores/fences for illustrative purposes
 		submitInfo.pWaitSemaphores = &presentCompleteSemaphore;      // Semaphore(s) to wait upon before the submitted command buffer starts executing
 		submitInfo.pSignalSemaphores = &renderCompleteSemaphore;     // Semaphore(s) to be signaled when command buffers have completed
@@ -379,7 +359,6 @@ public:
 		if (!((present == VK_SUCCESS) || (present == VK_SUBOPTIMAL_KHR))) {
 			VK_CHECK_RESULT(present);
 		}
-#endif
 	}
 
 	// Prepare vertex and index buffers for an indexed triangle
