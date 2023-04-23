@@ -1,13 +1,4 @@
-/*
-* Vulkan texture loader
-*
-* Copyright(C) by Sascha Willems - www.saschawillems.de
-*
-* This code is licensed under the MIT license(MIT) (http://opensource.org/licenses/MIT)
-*/
-
 #pragma once
-
 #include <fstream>
 #include <stdlib.h>
 #include <string>
@@ -21,10 +12,6 @@
 #include "VulkanBuffer.h"
 #include "VulkanDevice.h"
 #include "VulkanTools.h"
-
-#if defined(__ANDROID__)
-#	include <android/asset_manager.h>
-#endif
 
 namespace vks
 {
