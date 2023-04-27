@@ -81,6 +81,7 @@ set(EXAMPLES
 	triangle
       init
       pipelines
+      descriptorsets
 )
 
 buildExamples()

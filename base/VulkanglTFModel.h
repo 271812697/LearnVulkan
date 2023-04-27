@@ -26,14 +26,10 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #define TINYGLTF_NO_STB_IMAGE_WRITE
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-#define TINYGLTF_ANDROID_LOAD_FROM_ASSETS
-#endif
+
 #include "tiny_gltf.h"
 
-#if defined(__ANDROID__)
-#include <android/asset_manager.h>
-#endif
+
 
 namespace vkglTF
 {

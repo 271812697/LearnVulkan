@@ -11,22 +11,19 @@
 #include "VulkanSwapChain.h"
 
 /** @brief Creates the platform specific surface abstraction of the native platform window used for presentation */	
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
 void VulkanSwapChain::initSurface(void* platformHandle, void* platformWindow)
 
-#endif
+
 {
 	VkResult err = VK_SUCCESS;
 
 	// Create the os-specific surface
-#if defined(VK_USE_PLATFORM_WIN32_KHR)
 	VkWin32SurfaceCreateInfoKHR surfaceCreateInfo = {};
 	surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
 	surfaceCreateInfo.hinstance = (HINSTANCE)platformHandle;
 	surfaceCreateInfo.hwnd = (HWND)platformWindow;
 	err = vkCreateWin32SurfaceKHR(instance, &surfaceCreateInfo, nullptr, &surface);
 
-#endif
 
 	if (err != VK_SUCCESS) {
 		vks::tools::exitFatal("Could not create surface!", err);
