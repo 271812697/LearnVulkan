@@ -82,6 +82,7 @@ set(EXAMPLES
       init
       pipelines
       descriptorsets
+      dynamicuniformbuffer
 )
 
 buildExamples()
