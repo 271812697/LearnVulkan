@@ -83,6 +83,7 @@ set(EXAMPLES
       pipelines
       descriptorsets
       dynamicuniformbuffer
+      pushconstants
 )
 
 buildExamples()
