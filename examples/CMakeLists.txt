@@ -84,6 +84,7 @@ set(EXAMPLES
       descriptorsets
       dynamicuniformbuffer
       pushconstants
+      specializationconstants
 )
 
 buildExamples()
