@@ -85,6 +85,7 @@ set(EXAMPLES
       dynamicuniformbuffer
       pushconstants
       specializationconstants
+      texture
 )
 
 buildExamples()
