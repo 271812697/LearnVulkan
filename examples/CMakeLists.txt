@@ -87,6 +87,7 @@ set(EXAMPLES
       specializationconstants
       texture
       texturearray
+      texturecubemap
 )
 
 buildExamples()
