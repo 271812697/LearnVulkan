@@ -89,6 +89,7 @@ set(EXAMPLES
       texturearray
       texturecubemap
       texture3d
+      inputattachments
 )
 
 buildExamples()
